@@ -1,5 +1,7 @@
 // level1.js
 
+let level1Ticker;
+
 function setupLevel1(texture) {
     app.stage.removeChildren();
 
@@ -36,7 +38,6 @@ function setupLevel1(texture) {
 }
 
 function gameLoopLevel1(character, obstacle, goal, texture) {
-    // Update character position
     character.x += character.vx;
     character.y += character.vy;
 
@@ -44,15 +45,12 @@ function gameLoopLevel1(character, obstacle, goal, texture) {
     character.x = Math.max(0, Math.min(app.view.width - character.width, character.x));
     character.y = Math.max(0, Math.min(app.view.height - character.height, character.y));
 
-    // Collision detection with the obstacle
+    // Collision detection
     if (isColliding(character, obstacle)) {
         resetCharacter(character);
     }
 
-    // Check if the character reached the goal
     if (isColliding(character, goal)) {
-        console.log("Finish level 1");
-        currentLevel = 2;
         app.ticker.remove(level1Ticker);
         setupLevel2(texture);
     }

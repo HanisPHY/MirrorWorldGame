@@ -1,8 +1,9 @@
 // level2.js
 
+let level2Ticker;
+
 function setupLevel2(texture) {
     app.stage.removeChildren();
-    console.log("level 2")
 
     const character = new PIXI.Sprite(texture);
     character.x = 50;
@@ -23,7 +24,7 @@ function setupLevel2(texture) {
     reflectiveCharacter.anchor.set(0.5);
     app.stage.addChild(reflectiveCharacter);
 
-    // Create the mirror line in the middle
+    // Create the mirror line
     const mirrorLine = new PIXI.Graphics();
     mirrorLine.lineStyle(2, 0xffffff, 1);
     mirrorLine.moveTo(0, 300);
@@ -48,35 +49,27 @@ function setupLevel2(texture) {
     window.addEventListener("keydown", (e) => handleKeyDown(e, character));
     window.addEventListener("keyup", (e) => handleKeyUp(e, character));
 
-    console.log("Finished setting up level 2");
-
     // Game loop
-    level2Ticker = () => gameLoopLevel2(character, reflectiveCharacter, obstacle, goal);
+    level2Ticker = () => gameLoopLevel2(character, reflectiveCharacter, obstacle, goal, texture);
     app.ticker.add(level2Ticker);
 }
 
-function gameLoopLevel2(character, reflectiveCharacter, obstacle, goal) {
-    // Update character position
+function gameLoopLevel2(character, reflectiveCharacter, obstacle, goal, texture) {
     character.x += character.vx;
     character.y += character.vy;
 
-    // Keep character within top half of the area
     character.x = Math.max(0, Math.min(app.view.width - character.width, character.x));
     character.y = Math.max(0, Math.min(app.view.height / 2 - character.height, character.y));
 
-    // Update reflective character position symmetrically in the bottom half
     reflectiveCharacter.x = character.x;
     reflectiveCharacter.y = 600 - character.y;
 
-    // Collision detection with the obstacle
     if (isColliding(character, obstacle) || isColliding(reflectiveCharacter, obstacle)) {
         resetCharacter(character);
     }
 
-    // Check if the character reached the goal
     if (isColliding(character, goal)) {
-        console.log("Finish level 2");
-        alert("Level Completed! Moving to the next level.");
         app.ticker.remove(level2Ticker);
+        setupLevel3(texture);
     }
 }

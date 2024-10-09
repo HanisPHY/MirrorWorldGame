@@ -8,8 +8,6 @@ const app = new PIXI.Application({
 document.body.appendChild(app.view);
 
 let currentLevel = 1;
-let level1Ticker;
-let level2Ticker;
 
 // Load the character texture and start the setup process
 async function setup() {
@@ -17,4 +15,4 @@ async function setup() {
     setupLevel1(texture);
 }
 
-setup();  // Start the game setup
+setup();
