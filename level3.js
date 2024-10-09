@@ -54,7 +54,7 @@ function setupLevel3(texture) {
     // Create walls
     const walls = [
         createWall(350, 100, 20, 200),
-        createWall(200, 550, 200, 20), // Added another wall
+        // createWall(200, 550, 200, 20), // Added another wall
         createWall(580, 160, 100, 20)
     ];
     walls.forEach(wall => {
@@ -64,7 +64,7 @@ function setupLevel3(texture) {
 
     // Create two goals
     const goalCharacter = createGoal(700, 100);
-    const goalReflective = createGoal(700, 500);
+    const goalReflective = createGoal(700, 400);
     app.stage.addChild(goalCharacter);
     app.stage.addChild(goalReflective);
 
@@ -185,7 +185,7 @@ function createWall(x, y, width, height) {
 function createGoal(x, y) {
     const goal = new PIXI.Graphics();
     goal.beginFill(0x00ff00);
-    goal.drawRect(x, y, 50, 50);
+    goal.drawRect(x, y, 20, 20);
     goal.endFill();
     return goal;
 }
